@@ -84,8 +84,10 @@ li {
   padding: 10px 15px;
   border-radius: 15px;
   font-size: 1rem;
-  display: inline-block;
+  display: block; /* Ensure each message starts on a new line */
   border: 2px solid #660000; /* Maroon border around chat messages */
+  margin-bottom: 10px; /* Add space between messages */
+    
 }
 
 .user-bubble {
@@ -93,6 +95,7 @@ li {
   color: white;
   align-self: flex-end;
   margin-left: auto;
+  display: block; /* Ensure it starts on a new line */
 }
 
 .assistant-bubble {
@@ -100,6 +103,8 @@ li {
   color: white;
   align-self: flex-start;
   margin-right: auto;
+  display: block; /* Ensure it starts on a new line */
+
 }
 
 /* Chat Input Section - Flat Box with Send Button */
@@ -139,5 +144,15 @@ h1 {
   color: white;
   font-size: 2rem;
   text-align: center;
-  margin-bottom: 
+  margin-bottom: 20px;
+  padding: 10px;
+}
+/* Scrollable chat area */
+.chat-section::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chat-section::-webkit-scrollbar-thumb {
+  background-color: #660000; /* Chicago Maroon scrollbar thumb */
+  border-radius: 10px;
 }

@@ -55,7 +55,7 @@ function App() {
 
   return (
     <main className="container-fluid d-flex flex-column vh-100">
-      <h1 className="text-center py-4">Advise.ai</h1>
+      <h1 className="text-center py-4">Advisor</h1>
       
       <section className="input-section row mb-4">
         <div className="input-group col-md-6 mb-3">
