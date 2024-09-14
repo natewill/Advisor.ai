@@ -1,9 +1,24 @@
+/* Set the background to off-white */
+body, html {
+  height: 100%;
+  background-color: #fdf6f0; /* Off-white background */
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Input Section */
 .input-section {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   margin: 20px 0;
-  align-items: flex-start; /* Aligns all input groups vertically */
+  align-items: flex-start;
 }
 
 .input-group {
@@ -11,8 +26,8 @@
   flex-direction: column;
   margin-right: 20px;
   margin-bottom: 10px;
-  width: 100%; /* Makes sure each input group takes the full width in its container */
-  max-width: 300px; /* Adjust width as needed */
+  width: 100%;
+  max-width: 300px;
 }
 
 .input-group label {
@@ -53,4 +68,76 @@ li {
   padding: 5px;
   margin: 5px 0;
   border-radius: 5px;
+}
+
+/* Chat Section */
+.chat-section {
+  background-color: #f8f9fa;
+  padding: 20px;
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.chat-bubble {
+  max-width: 75%;
+  padding: 10px 15px;
+  border-radius: 15px;
+  font-size: 1rem;
+  display: inline-block;
+  border: 2px solid #660000; /* Maroon border around chat messages */
+}
+
+.user-bubble {
+  background-color: #660000; /* Chicago Maroon */
+  color: white;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.assistant-bubble {
+  background-color: #FF6600; /* Burnt Orange */
+  color: white;
+  align-self: flex-start;
+  margin-right: auto;
+}
+
+/* Chat Input Section - Flat Box with Send Button */
+.chat-input {
+  background-color: #f1f1f1;
+  padding: 10px;
+  position: fixed; /* Fixed at the bottom */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 2px solid #660000; /* Maroon border at the top of the input area */
+  display: flex;
+  align-items: center;
+}
+
+input.form-control {
+  border: none; /* Flat input field */
+  border-bottom: 2px solid #660000; /* Maroon underline for the input field */
+  padding: 10px;
+  margin-right: 10px;
+  flex: 1;
+  border-radius: 0; /* Flat borders */
+}
+
+button.btn-secondary {
+  border: none; /* Flat send button */
+  background-color: #660000; /* Maroon color */
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 0; /* Flat button */
+}
+
+/* Header */
+h1 {
+  background-color: #FF6600; /* Burnt Orange */
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 
 }
