@@ -9,8 +9,26 @@ function App() {
   // New states for the dropdown inputs
   const [yearEntered, setYearEntered] = useState("");
   const [graduationYear, setGraduationYear] = useState("");
-  const [major, setMajor] = useState("");
-  const [minor, setMinor] = useState("");
+  
+  // States for majors and minors
+  const [majorInput, setMajorInput] = useState("");
+  const [majors, setMajors] = useState([]);
+  const [minorInput, setMinorInput] = useState("");
+  const [minors, setMinors] = useState([]);
+
+  const handleAddMajor = () => {
+    if (majorInput.trim() !== "") {
+      setMajors([...majors, majorInput]);
+      setMajorInput("");
+    }
+  };
+
+  const handleAddMinor = () => {
+    if (minorInput.trim() !== "") {
+      setMinors([...minors, minorInput]);
+      setMinorInput("");
+    }
+  };
 
   const chat = async (e, message) => {
     e.preventDefault();
@@ -50,7 +68,7 @@ function App() {
     <main>
       <h1>Advise.ai</h1>
       
-      {/* Dropdown input section */}
+      {/* Input section */}
       <section className="input-section">
         <div className="input-group">
           <label>Year Entered: </label>
@@ -66,6 +84,7 @@ function App() {
             <option value="2023 Spring">2023 Spring</option>
           </select>
         </div>
+
         <div className="input-group">
           <label>Expected Graduation Year: </label>
           <select value={graduationYear} onChange={(e) => setGraduationYear(e.target.value)}>
@@ -80,26 +99,41 @@ function App() {
             <option value="2027 Spring">2027 Spring</option>
           </select>
         </div>
+
         <div className="input-group">
           <label>Major(s): </label>
-          <select value={major} onChange={(e) => setMajor(e.target.value)}>
-            <option value="">Select Major</option>
-            <option value="CMDA">CMDA</option>
-            <option value="Computer Science">Computer Science</option>
-            <option value="Mathematics">Mathematics</option>
-            <option value="Finance">Finance</option>
-            {/* Add more options here */}
-          </select>
+          <div className="input-add">
+            <input
+              type="text"
+              value={majorInput}
+              onChange={(e) => setMajorInput(e.target.value)}
+              placeholder="Enter your major(s)"
+            />
+            <button type="button" onClick={handleAddMajor}>Add Major</button>
+          </div>
+          <ul>
+            {majors.map((major, index) => (
+              <li key={index}>{major}</li>
+            ))}
+          </ul>
         </div>
+
         <div className="input-group">
           <label>Minor(s): </label>
-          <select value={minor} onChange={(e) => setMinor(e.target.value)}>
-            <option value="">Select Minor</option>
-            <option value="Mathematics">Mathematics</option>
-            <option value="Statistics">Statistics</option>
-            <option value="Finance">Finance</option>
-            {/* Add more options here */}
-          </select>
+          <div className="input-add">
+            <input
+              type="text"
+              value={minorInput}
+              onChange={(e) => setMinorInput(e.target.value)}
+              placeholder="Enter your minor(s)"
+            />
+            <button type="button" onClick={handleAddMinor}>Add Minor</button>
+          </div>
+          <ul>
+            {minors.map((minor, index) => (
+              <li key={index}>{minor}</li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -137,3 +171,5 @@ function App() {
 }
 
 export default App;
+
+

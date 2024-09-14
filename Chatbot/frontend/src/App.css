@@ -1,24 +1,56 @@
 .input-section {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin: 20px 0;
-  }
-  
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    margin-right: 20px;
-    margin-bottom: 10px;
-  }
-  
-  .input-group label {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .input-group select {
-    padding: 5px;
-    font-size: 1rem;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  align-items: flex-start; /* Aligns all input groups vertically */
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  width: 100%; /* Makes sure each input group takes the full width in its container */
+  max-width: 300px; /* Adjust width as needed */
+}
+
+.input-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input-group select,
+.input-add input {
+  padding: 5px;
+  font-size: 1rem;
+}
+
+.input-add {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.input-add input {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.input-add button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+li {
+  background-color: #f0f0f0;
+  padding: 5px;
+  margin: 5px 0;
+  border-radius: 5px;
+}
