@@ -10,7 +10,7 @@ app.use(cors());
 
 const configuration = new Configuration({
   organization: "org-0nmrFWw6wSm6xIJXSbx4FpTw",
-  
+  //note this line needs to be Delted for push 
 });
 const openai = new OpenAIApi(configuration);
 
