@@ -69,13 +69,15 @@ form {
 }
 
 input {
-  width: 100%;
+  padding: 20px;
+  width: 500px;
   height: 40px;
   border: none;
   padding: 10px;
   font-size: 1.2rem;
   background-color: rgb(28, 23, 23);
   color: white;
+
 }
 
 input:focus {

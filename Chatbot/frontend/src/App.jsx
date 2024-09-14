@@ -45,12 +45,27 @@ function App() {
 
     setMessage("");
 
-    // Simulate async chat response
-    setTimeout(() => {
-      msgs.push({ role: "assistant", content: "This is a response from the advisor." });
+    try {
+      // Make a POST request to your Flask backend
+      const response = await fetch("http://localhost:5000/parse", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message }), // Send the message as JSON
+      });
+
+      const data = await response.json();
+
+      msgs.push({ role: "assistant", content: data.result });  // Use the result from the backend
       setChats([...msgs]);
+    } catch (error) {
+      console.error("Error:", error);
+      msgs.push({ role: "assistant", content: "Sorry, there was an error processing your request." });
+      setChats([...msgs]);
+    } finally {
       setIsTyping(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -66,7 +81,6 @@ function App() {
             onChange={(e) => setYearEntered(e.target.value)}
           >
             <option value="">Year Enrolled</option>
-            {/* Add more year options here */}
           </select>
         </div>
 
@@ -78,7 +92,6 @@ function App() {
             onChange={(e) => setGraduationYear(e.target.value)}
           >
             <option value="">Expected Graduation</option>
-            {/* Add more year options here */}
           </select>
         </div>
 
@@ -142,7 +155,7 @@ function App() {
             type="text"
             name="message"
             value={message}
-            placeholder="How can I Advise you?..."
+            placeholder="How can I advise you?..."
             onChange={(e) => setMessage(e.target.value)}
             className="form-control"
           />
@@ -154,8 +167,3 @@ function App() {
 }
 
 export default App;
-
-
- 
-
-
