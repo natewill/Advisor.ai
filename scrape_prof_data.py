@@ -1,4 +1,6 @@
-Professor Name,Department,University,Quality Rating,Number of Ratings,Would Take Again,Level of Difficulty
+import csv
+
+data = """Professor Name,Department,University,Quality Rating,Number of Ratings,Would Take Again,Level of Difficulty
 Jason Sharp,Accounting,Virginia Tech,4.7,82,94%,2
 Kimberly Walker,Accounting,Virginia Tech,1.3,9,0%,4.9
 Fulton Galer,Accounting,Virginia Tech,3.1,4,50%,3.1
@@ -1892,3 +1894,13 @@ Anne-Lise Velez,Writing,Virginia Tech,1.0,1,0%,3
 Monique Dufour,Writing,Virginia Tech,4.2,4,50%,3
  
 
+"""
+
+# Specify the file path
+file_path = 'professor_ratings.csv'
+
+# Write data to CSV file
+with open(file_path, mode='w', newline='', encoding='utf-8') as file:
+    file.write(data)
+
+print(f"Data has been written to {file_path}")
