@@ -23,21 +23,12 @@ from llama_parse import LlamaParse
 #print(os.getenv('LLAMA_CLOUD_API_KEY'))
 
 # sync
-KDBAI_ENDPOINT = (
-    os.environ["KDBAI_ENDPOINT"]
-    if "KDBAI_ENDPOINT" in os.environ
-    else input("KDB.AI endpoint: ")
-)
-KDBAI_API_KEY = (
-    os.environ["KDBAI_API_KEY"]
-    if "KDBAI_API_KEY" in os.environ
-    else getpass("KDB.AI API key: ")
-)
+KDBAI_ENDPOINT = os.getenv('KDBAI_ENDPOINT')
+
+KDBAI_API_KEY = os.getenv('KDBAI_API_KEY')
 
 #connect to KDB.AI
-session = kdbai.Session(api_key=KDBAI_API_KEY, endpoint=KDBAI_ENDPOINT)
-
-# The schema contains two metadata columns (document_id, text) and one embeddings column
+session = kdbai.Session(api_key=KDBAI_API_KEY, endpoint=KDBAI_ENDPOINT) # The schema contains two metadata columns (document_id, text) and one embeddings column
 # Index type, search metric (Euclidean distance), and dimensions are specified in the embedding column
 schema = dict(
     columns=[
@@ -63,13 +54,13 @@ prompt_text = "this pdf is a checksheet for college students to which classes th
     . it has a pathways section telling you which pathways classes\
 you need to take, it then shows all the courses you are required to take to graduate. "
 parser = LlamaParse(
-    api_key=os.getenv('LLAMA_CLOUD_API_KEY'),  # can also be set in your env as LLAMA_CLOUD_API_KEY
+    api_key=  os.getenv('LLAMA_CLOUD_API_KEY'),# can also be set in your env as LLAMA_CLOUD_API_KEY
     result_type="markdown",  # "markdown" and "text" are available
     verbose=True,
     parsing_instructions=prompt_text,
 )
-data = SimpleDirectoryReader(input_dir="data/").load_data(show_progress=True)
-
+data = SimpleDirectoryReader(input_dir="./data").load_data(show_progress=True)
+print(data[0].text)
 
 documents = []
 for a, b, c in os.walk("pdfs"):
@@ -81,6 +72,7 @@ documents += parser.load_data("pdfs/minor_fin_22_23.pdf")
 
 
 documents += data
+
 
 GENERATION_MODEL = "gpt-4o-mini"
 EMBEDDING_MODEL  = "text-embedding-3-small"
@@ -110,13 +102,18 @@ recursive_index = VectorStoreIndex(
 table.query()
 
 ### Define reranker
-cohere_rerank = CohereRerank(top_n=10)
+cohere_rerank = CohereRerank(api_key=os.getenv('COHERE_API_KEY'), top_n=10)
 
 ### Create the query_engine to execute RAG pipeline using LlamaIndex, KDB.AI, and Cohere reranker
 query_engine = recursive_index.as_query_engine(similarity_top_k=15, node_postprocessors=[cohere_rerank])
 
-query_1 = "I am a CMDA Major Minoring in Finance. I am wondering if I need to take  BIT 2405 or if cmda 2005 and cmda 2006. I see online that stats 3006 and stats 3005  can be a subtitue for that class but can CMDA 2005 and 2006 be a substitue?"
+query_1 = "I am a CMDA Major minoring in Finance. I am wondering if I need to take BIT 2405 or if cmda 2005 and cmda 2006 can substitutes. I see online that stats 3006 and stats 3005 can be a subtitue for that class but can CMDA 2005 and 2006 be a substitue?"
 
 response_1 = query_engine.query(query_1)
+
+while True:
+    query = input('Ask me a question')
+    str(query_engine.query(query))
+
 
 print(str(response_1))
